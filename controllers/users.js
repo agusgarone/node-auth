@@ -1,3 +1,7 @@
+import { ObjectId } from "mongodb";
+
+import { validateUser, validateUserUpdate } from "../schemas/users.js";
+
 export class UserController {
   constructor({ model }) {
     this.model = model;
@@ -10,6 +14,7 @@ export class UserController {
 
   getById = async (req, res) => {
     const { id } = req.params;
+    console.log(id);
     const user = await this.model.getById(id);
     if (user) return res.json(user);
     res.status(404).json({ error: "User not found" });
@@ -20,7 +25,12 @@ export class UserController {
     if (!result.success) {
       return res.status(400).json({ error: result.error.message });
     }
-    const newUser = await this.model.create(result.data);
+    const newUser = await this.model.create({
+      input: {
+        ...result.data,
+        _id: new ObjectId(),
+      },
+    });
     res.status(201).json(newUser);
   };
 

@@ -1,6 +1,7 @@
 {
   "name": "auth",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "2.8.5",
     "express": "5.1.0",
     "mongodb": "6.20.0",
     "zod": "4.1.12"
