@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 
 import { validateUser, validateUserUpdate } from "../schemas/users.js";
+import { argon2id, hash } from "argon2";
 
 export class UserController {
   constructor({ model }) {
@@ -28,6 +29,7 @@ export class UserController {
     const newUser = await this.model.create({
       input: {
         ...result.data,
+        password: await hash(result.data.password, { type: argon2id }),
         _id: new ObjectId(),
       },
     });
