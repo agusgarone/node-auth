@@ -40,6 +40,12 @@ export class usersModel {
     return user;
   }
 
+  static async getByEmail(email) {
+    const db = await connect();
+    const user = db.findOne({ email: email });
+    return user;
+  }
+
   static async create({ input }) {
     const db = await connect();
     const newUser = await db.insertOne(input);
