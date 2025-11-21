@@ -9,7 +9,7 @@ export const createApp = ({ model }) => {
   const app = express();
   app.use(json());
   app.use(corsMiddleware());
-  app.use(requireAuth());
+  app.use(requireAuth);
   app.disable("x-powered-by");
 
   app.use("/users", userRouter({ model: model }));
