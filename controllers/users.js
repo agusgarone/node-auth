@@ -30,7 +30,7 @@ export class UserController {
       input: {
         ...result.data,
         password: await hash(result.data.password, { type: argon2id }),
-        _id: new ObjectId(),
+        _id: new ObjectId().toString(),
       },
     });
     res.status(201).json(newUser);

@@ -35,14 +35,13 @@ export class usersModel {
 
   static async getById(id) {
     const db = await connect();
-    const objectId = new ObjectId(id);
-    const user = db.findOne({ _id: objectId });
+    const user = await db.findOne({ _id: id });
     return user;
   }
 
   static async getByEmail(email) {
     const db = await connect();
-    const user = db.findOne({ email: email });
+    const user = await db.findOne({ email: email });
     return user;
   }
 
@@ -57,16 +56,14 @@ export class usersModel {
 
   static async delete(id) {
     const db = await connect();
-    const objectId = new ObjectId(id);
-    const { deletedCount } = await db.deleteOne({ _id: objectId });
+    const { deletedCount } = await db.deleteOne({ _id: id });
     return deletedCount > 0;
   }
 
   static async update({ id, input }) {
     const db = await connect();
-    const objectId = new ObjectId(id);
     const { ok, value } = await db.findOneAndUpdate(
-      { _id: objectId },
+      { _id: id },
       { $set: input },
       { returnDocument: "after" }
     );

@@ -9,7 +9,11 @@ export const requireAuth = (req, res, next) => {
     params: req.params,
     query: req.query,
   });
-  if (req.originalUrl !== "/auth/login") {
+  if (
+    req.originalUrl !== "/auth/login" &&
+    req.originalUrl !== "/auth/refresh" &&
+    req.originalUrl !== "/auth/logout"
+  ) {
     const authHeader = req.headers.authorization;
 
     const token = authHeader.startsWith("Bearer") ? authHeader.slice(7) : null;
